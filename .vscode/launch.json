@@ -2,6 +2,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "java",
+			"name": "Main",
+			"request": "launch",
+			"mainClass": "Main",
+			"projectName": "apiq_cc05fa42"
+		},
+		{
 			"vmArgs": "--module-path C:/Users/dania/Downloads/javafx-sdk-21.0.7/lib --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
 			"name": "Launch Current File",
