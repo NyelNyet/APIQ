@@ -34,4 +34,5 @@ public class AlAmilunaAlaiha extends Asnaf{
                 ", dateOfApplication= " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
                 ", zakatAgency= " + zakatAgency;
     }
+    
 }

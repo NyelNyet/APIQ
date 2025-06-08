@@ -1,9 +1,9 @@
 import java.time.LocalDate;
 
-import User.User;
+import User.*;
 import User.Asnaf.*;
 
-public class Main {
+public class Main implements NotificationService{
     public static void main(String[] args) {
         DataManager dm = new DataManager();
         User f = new AlFuqara("MINAH","0111111111","minah123@gmail.com","Rumah Minah",25,1500,1000,"5 total family members");
@@ -23,5 +23,8 @@ public class Main {
         dm.addAsnaf((Asnaf) fs);
 
         dm.getAllAsnafDetail();
+
+        f.sendEmail(f.getName());
+        
     }
 }

@@ -19,4 +19,5 @@ public class DataManager {
     public void getAllAsnafDetail(){
         asnafList.forEach(x -> System.out.println(x.toString()+'\n'));
     }
+    
 }

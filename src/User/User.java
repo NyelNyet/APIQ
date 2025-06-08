@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public abstract class User {
+public abstract class User implements NotificationService{
     protected int userID;
     protected String name;;
     protected String phoneNumber;
