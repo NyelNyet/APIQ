@@ -13,13 +13,17 @@ public abstract class Asnaf extends User{
     protected String typeOfAsnaf;
     protected LocalDate dateOfApplication;
 
-    public Asnaf(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation){
+    public Asnaf(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String typeOfAsnaf){
         super(name,phoneNumber,email,address,age);
         this.monthlyIncome = monthlyIncome;
         this.monthlyExpenses = monthlyExpenses;
         this.familyInformation = familyInformation;
-        this.typeOfAsnaf = "Undetermined";
+        this.typeOfAsnaf = typeOfAsnaf;
         this.dateOfApplication = LocalDate.now();
+    }
+
+    public String getTypeOfAsnaf() {
+        return typeOfAsnaf;
     }
 
     public double getMonthlyIncome() {

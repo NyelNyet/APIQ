@@ -7,8 +7,8 @@ public class AlAmilunaAlaiha extends Asnaf{
 
     private String zakatAgency;
 
-    public AlAmilunaAlaiha(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String zakatAgency) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public AlAmilunaAlaiha(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String zakatAgency, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.zakatAgency = zakatAgency;
     }
 

@@ -7,8 +7,8 @@ public class IbnAlSabil extends Asnaf {
 
     private String reasonForBeingStranded;
 
-    public IbnAlSabil(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String reasonForBeingStranded) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public IbnAlSabil(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String reasonForBeingStranded, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.reasonForBeingStranded = reasonForBeingStranded;
     }
 

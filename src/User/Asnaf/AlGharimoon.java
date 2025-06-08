@@ -6,8 +6,8 @@ public class AlGharimoon extends Asnaf {
     // Those who are in debt and need help to pay it off
     private double debtAmount;
 
-    public AlGharimoon(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, double debtAmount) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public AlGharimoon(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, double debtAmount, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.debtAmount = debtAmount;
     }
 

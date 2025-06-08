@@ -6,8 +6,8 @@ public class AlRiqab extends Asnaf{
     //Those who are enslaved and need help to free themselves
     private String typeOfCaptivity;
 
-    public AlRiqab(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String typeOfCaptivity) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public AlRiqab(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String typeOfCaptivity, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.typeOfCaptivity = typeOfCaptivity;
     }
 

@@ -7,8 +7,8 @@ public class FiSabiLillah extends Asnaf{
 
     private String acitivityInTheCauseOfAllah;
 
-    public FiSabiLillah(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String acitivityInTheCauseOfAllah) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public FiSabiLillah(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, String acitivityInTheCauseOfAllah, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.acitivityInTheCauseOfAllah = acitivityInTheCauseOfAllah;
     }
 

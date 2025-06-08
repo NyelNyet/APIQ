@@ -8,8 +8,8 @@ public class AlMualafaQulubuhum extends Asnaf {
 
     private LocalDate dateOfConversion;
 
-    public AlMualafaQulubuhum(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, LocalDate dateOfConversion) {
-        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
+    public AlMualafaQulubuhum(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation, LocalDate dateOfConversion, String typeOfAsnaf) {
+        super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfAsnaf);
         this.dateOfConversion = dateOfConversion;
     }
     
