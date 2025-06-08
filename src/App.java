@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class App extends Application {
 
         for(String[] aData : allData){
             switch (aData.length) {
-                case 10:{
+                case 11:{
                     if(aData[10].equals("AlFuqara")){
                         dm.addAsnaf(new AlFuqara(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[9]));
                     }else if(aData[10].equals("AlMasakin")){
@@ -53,17 +55,16 @@ public class App extends Application {
                     }
                 }break;
 
-                /*case 11:{
-                    switch (aData[9]) {
-                        case "AlAmilunaAlaiha":dm.addAsnaf(new AlAmilunaAlaiha(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, zakatAgency, typeOfAsnaf));break;
-                        case "AlGharimoon":dm.addAsnaf(new AlGharimoon(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, debtAmount, typeOfAsnaf));break;
-                        case "AlMualafaQulubuhum":dm.addAsnaf(new AlMualafaQulubuhum(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, dateOfConversion, typeOfAsnaf));break;
-                        case "AlRiqab":dm.addAsnaf(new AlRiqab(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, typeOfCaptivity, typeOfAsnaf));break;
-                        case "FiSabiLillah":dm.addAsnaf(new FiSabiLillah(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, acitivityInTheCauseOfAllah, typeOfAsnaf));break;
-                        case "IbnAlSabil":dm.addAsnaf(new IbnAlSabil(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation, reasonForBeingStranded, typeOfAsnaf))break;
-                        }
+                case 12:{
+                    switch (aData[11]) {
+                        case "AlAmilunaAlaiha":dm.addAsnaf(new AlAmilunaAlaiha(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[9], aData[10]));break;
+                        case "AlGharimoon":dm.addAsnaf(new AlGharimoon(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], Double.parseDouble(aData[10]), aData[11]));break;
+                        case "AlMualafaQulubuhum":dm.addAsnaf(new AlMualafaQulubuhum(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], LocalDate.parse(aData[10]), aData[11]));break;
+                        case "AlRiqab":dm.addAsnaf(new AlRiqab(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[9], aData[10]));break;
+                        case "FiSabiLillah":dm.addAsnaf(new FiSabiLillah(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[9], aData[10]));break;
+                        case "IbnAlSabil":dm.addAsnaf(new IbnAlSabil(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[9], aData[10]));break;
                     }
-                }break;*/
+                }break;
             }
         }
     }
