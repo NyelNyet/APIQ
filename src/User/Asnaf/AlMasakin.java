@@ -1,8 +1,8 @@
 package User.Asnaf;
 
-public class AlFuqara extends Asnaf{
+public class AlMasakin extends Asnaf{
 
-    public AlFuqara(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation) {
+    public AlMasakin(String name, String phoneNumber, String email, String address, int age, double monthlyIncome, double monthlyExpenses, String familyInformation) {
         super(name, phoneNumber, email, address, age, monthlyIncome, monthlyExpenses, familyInformation);
     }
 

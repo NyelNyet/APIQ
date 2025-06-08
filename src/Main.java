@@ -1,22 +1,24 @@
+import java.time.LocalDate;
+
 import User.User;
+import User.Asnaf.*;
 
 public class Main {
     public static void main(String[] args) {
-        User u1 = new User("ALI","0123456789","Ali123@gmail.com","AlamatAli",25);
-        User u2 = new User("ABU", "0987654321", "ABU123@yahoo.com","AlamatAbu",20);
+        User f = new AlFuqara("MINAH","0111111111","minah123@gmail.com","Rumah Minah",25,1500,1000,"5 total family members");
+        User m = new AlMasakin("AHMAD","0122222222","ahmad123@gmail.com","Rumah Ahmad",30,2000,1500,"3 total family members");
+        User a = new AlAmilunaAlaiha("ABU","0133333333","zakatagency123@gmail.com","Rumah Abu",40,3000,2500,"5 total family members","IIUM Zakat Agency");
+        User mq = new AlMualafaQulubuhum("ALI","0144444444","mualafa123@gmail.com","Rumah Ali",35,2500,2000,"4 total family members",LocalDate.now());
+        User ar = new AlRiqab("KHAIRUL","0155555555","riqab123@gmail.com","Rumah Khairul",28,2200,1800,"2 total family members","Debt Slavery");
+        User ag = new AlGharimoon("ZAIN","0166666666","gharimoon123@gmail.com","Rumah Zain",32,2700,2200,"6 total family members",15000);
+        User fs = new FiSabiLillah("SITI","0177777777","fi_sabilillah123@gmail.com","Rumah Siti",29,2500,2000,"4 total family members","Dakwah");
 
-        System.out.println( "UserID: "+u1.getUserID()+", "+
-                            "Name: "+u1.getName()+", "+
-                            "Age: "+u1.getAge()+", "+
-                            "Phone Number: "+u1.getPhoneNumber()+", "+
-                            "Email: "+u1.getEmail()+", "+
-                            "Address: "+u1.getAddress());
-
-        System.out.println( "UserID: "+u2.getUserID()+", "+
-                            "Name: "+u2.getName()+", "+
-                            "Age: "+u2.getAge()+", "+
-                            "Phone Number: "+u2.getPhoneNumber()+", "+
-                            "Email: "+u2.getEmail()+", "+
-                            "Address: "+u2.getAddress());
+        System.out.println(f.toString()+'\n');
+        System.out.println(m.toString()+'\n');
+        System.out.println(a.toString()+'\n');
+        System.out.println(mq.toString()+'\n');
+        System.out.println(ar.toString()+'\n');
+        System.out.println(ag.toString()+'\n');
+        System.out.println(fs.toString()+'\n');
     }
 }

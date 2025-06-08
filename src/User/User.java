@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class User {
+public abstract class User {
     protected int userID;
     protected String name;;
     protected String phoneNumber;
