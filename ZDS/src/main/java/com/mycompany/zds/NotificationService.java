@@ -9,5 +9,5 @@ package com.mycompany.zds;
  * @author user
  */
 public interface NotificationService {
-    
+    void sendNotification(String message);
 }
