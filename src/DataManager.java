@@ -1,14 +1,14 @@
-import java.util.ArrayList;
+import java.util.*;
 
 import User.Asnaf.*;
 
 public class DataManager {
-    private ArrayList<Asnaf> asnafList;
+    private List<Asnaf> asnafList;
     //private ArrayList<Payment> paymentList; class waiting to pull from main
 
 
     public DataManager(){
-        asnafList = new ArrayList();
+        asnafList = new ArrayList<>();
         //paymentList = new ArrayLisy();
     }
 
