@@ -11,6 +11,14 @@ public class AlGharimoon extends Asnaf {
         this.debtAmount = debtAmount;
     }
 
+    public double getDebtAmount() {
+        return debtAmount;
+    }
+
+    public void setDebtAmount(double debtAmount) {
+        this.debtAmount = debtAmount;
+    }
+
     @Override
     public String toString() {
         return "name= " + name +

@@ -12,6 +12,14 @@ public class AlAmilunaAlaiha extends Asnaf{
         this.zakatAgency = zakatAgency;
     }
 
+    public String getZakatAgency() {
+        return zakatAgency;
+    }
+
+    public void setZakatAgency(String zakatAgency) {
+        this.zakatAgency = zakatAgency;
+    }
+
     @Override
     public String toString() {
         return "name= " + name +
@@ -25,13 +33,5 @@ public class AlAmilunaAlaiha extends Asnaf{
                 ", typeOfAsnaf= " + typeOfAsnaf +
                 ", dateOfApplication= " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
                 ", zakatAgency= " + zakatAgency;
-    }
-    
-    public String getZakatAgency() {
-        return zakatAgency;
-    }
-
-    public void setZakatAgency(String zakatAgency) {
-        this.zakatAgency = zakatAgency;
     }
 }
