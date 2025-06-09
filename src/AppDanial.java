@@ -18,18 +18,22 @@ import javafx.stage.Stage;
 public class AppDanial extends Application {
     DataManager dm = new DataManager();
     FileManager fm = new FileManager();
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         readAllData();
 
         // ListView to display existing users
         ListView<Asnaf> asnafListView = new ListView<>();
-        asnafListView.getItems().setAll(dm.getAsnafList()); // Populate ListView
+        asnafListView.getItems().setAll(dm.getAsnafList());
 
         ListView<ZakatPayer> payerListView = new ListView<>();
-        payerListView.getItems().setAll(dm.getZakatPayerList()); // Populate ListView
+        payerListView.getItems().setAll(dm.getZakatPayerList());
 
-        // Layout
         VBox layout1 = new VBox(10, new Label("Zakat Appliers:"), asnafListView);
         layout1.setSpacing(10);
 
@@ -39,15 +43,10 @@ public class AppDanial extends Application {
         VBox root = new VBox();
         root.getChildren().addAll(layout1,layout2);
 
-        // Scene setup
         Scene scene = new Scene(root, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.setTitle("User Display");
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public void readAllData(){
