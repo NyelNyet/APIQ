@@ -7,7 +7,7 @@ This is a desktop application built with JavaFX for managing the collection and 
 - **Dual User Portals:** Separate interfaces and functionalities for Public Users and Administrators.
 - **Zakat Payer Management:** Add and view individuals who are paying Zakat.
 - **Asnaf (Recipient) Management:**
-    - Register new Asnaf applications under the 8 official categories (Al-Fuqara, Al-Masakin, etc.).
+    - Register new Asnaf applications under the 8 official categories (Al-Fuqara, Al-Masakin, _et al_.).
     - Input detailed, category-specific information for each applicant.
 - **Administrative Functions:**
     - Secure admin login portal.
