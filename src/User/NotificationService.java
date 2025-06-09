@@ -1,4 +1,4 @@
-package User;
+package User;//done by 2413801_FARIS
 public interface NotificationService {
 
     default void sendNotification(String name,String msg){
