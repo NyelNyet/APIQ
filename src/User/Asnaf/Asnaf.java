@@ -54,6 +54,10 @@ public abstract class Asnaf extends User{
         return dateOfApplication;
     }
 
+    public void setAmountReceived(double amountRecieved){
+        this.amountRecieved = amountRecieved;
+    }
+
     @Override
     public abstract String toString();
 
