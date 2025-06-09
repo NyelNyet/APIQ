@@ -2,13 +2,12 @@
 
 This is a desktop application built with JavaFX for managing the collection and distribution of Zakat. The system provides a user-friendly graphical interface (GUI) for two types of users: Public Users and a system Administrator. It allows for the registration of Zakat payers and Asnaf (recipients), and provides administrative tools for managing applications and generating reports.
 
->>>>>>> 1baea81 (Update README.md)
 ## ✨ Features
 
 - **Dual User Portals:** Separate interfaces and functionalities for Public Users and Administrators.
 - **Zakat Payer Management:** Add and view individuals who are paying Zakat.
 - **Asnaf (Recipient) Management:**
-    - Register new Asnaf applications under the 8 official categories (Al-Fuqara, Al-Masakin, etc.).
+    - Register new Asnaf applications under the 8 official categories (Al-Fuqara, Al-Masakin, _et al_.).
     - Input detailed, category-specific information for each applicant.
 - **Administrative Functions:**
     - Secure admin login portal.
