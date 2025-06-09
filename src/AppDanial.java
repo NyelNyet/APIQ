@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class AppDanial extends Application {
     DataManager dm = new DataManager();
     FileManager fm = new FileManager();
     @Override
