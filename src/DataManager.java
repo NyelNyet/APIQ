@@ -1,4 +1,8 @@
-//Danial Harith bin Mohd Sukeri 2411467
+/*
+Danial Harith bin Mohd Sukeri 2411467
+This class will contains all the data in a list. it will first read from file once the program starts and store it into the list.
+this list then will be use by other class to either display or remove anything
+*/
 
 import java.util.ArrayList;
 import java.util.List;
