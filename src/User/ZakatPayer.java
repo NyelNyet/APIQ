@@ -1,22 +1,24 @@
 package User;
 
-public class ZakatPayer extends User{
+public class ZakatPayer extends User {
     private double zakatAmount;
 
     public ZakatPayer(String name, String phoneNumber, String email, String address, int age, double zakatAmount) {
         super(name, phoneNumber, email, address, age);
+        if (zakatAmount < 0) {
+            throw new IllegalArgumentException("Initial Zakat amount cannot be negative.");
+        }
         this.zakatAmount = zakatAmount;
     }
 
     public boolean submitPayment(double amount) {
-        if (amount > 0) {
-            this.zakatAmount += amount;
-            System.out.println("Zakat payment of RM" + amount + " submitted successfully.");
-            return true;
-        } else {
-            System.out.println("Invalid zakat amount.");
+        if (amount <= 0) {
+            System.err.println("Invalid payment amount. Amount must be positive.");
             return false;
         }
+        this.zakatAmount += amount;
+        System.out.println("Zakat payment of RM" + amount + " submitted successfully.");
+        return true;
     }
 
     public double getZakatAmount() {
@@ -24,6 +26,9 @@ public class ZakatPayer extends User{
     }
 
     public void setZakatAmount(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Zakat amount cannot be negative.");
+        }
         this.zakatAmount = amount;
     }
 

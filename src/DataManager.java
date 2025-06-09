@@ -1,48 +1,52 @@
-import java.util.*;
-
-import User.*;
-import User.Asnaf.*;
+import java.util.ArrayList;
+import java.util.List;
+import User.Asnaf.Asnaf;
+import User.ZakatPayer;
 
 public class DataManager {
     private List<Asnaf> asnafList;
     private List<ZakatPayer> zakatPayerList;
-    private List<String> zakatReport;
 
-    public DataManager(){
+    public DataManager() {
         asnafList = new ArrayList<>();
         zakatPayerList = new ArrayList<>();
-        zakatReport = new ArrayList<>();
     }
 
-    public void addAsnaf(Asnaf asnaf){
+    public void addAsnaf(Asnaf asnaf) {
+        if (asnaf == null) {
+            throw new IllegalArgumentException("Cannot add a null Asnaf object.");
+        }
         asnafList.add(asnaf);
     }
 
-    public void addZakatPayer(ZakatPayer zakatPayer){
+    public void addZakatPayer(ZakatPayer zakatPayer) {
+        if (zakatPayer == null) {
+            throw new IllegalArgumentException("Cannot add a null ZakatPayer object.");
+        }
         zakatPayerList.add(zakatPayer);
     }
 
-    public void getAllZakatPayerDetail(){
+    public void getAllZakatPayerDetail() {
+        if (zakatPayerList.isEmpty()) {
+            System.out.println("No Zakat Payer data available.");
+            return;
+        }
         zakatPayerList.forEach(x -> System.out.println(x.toString()));
     }
 
-    public void getAllAsnafDetail(){
-        asnafList.forEach(x -> System.out.println(x.toString()));
+    public void getAllAsnafDetail() {
+        if (asnafList.isEmpty()) {
+            System.out.println("No Asnaf data available.");
+            return;
+        }
+        asnafList.forEach(x -> System.out.println(x.toString() + '\n'));
     }
 
     public List<ZakatPayer> getZakatPayerList() {
-        return zakatPayerList;
+        return new ArrayList<>(zakatPayerList); // Return a copy to prevent external modification
     }
 
-    public List<Asnaf> getAsnafList(){
-        return asnafList;
-    }
-
-    public void addZakatReport(Asnaf asnaf){
-        zakatReport.add(asnaf.toString());
-    }
-
-    public List<String> getZakatReportList() {
-        return zakatReport;
+    public List<Asnaf> getAsnafList() {
+        return new ArrayList<>(asnafList); // Return a copy to prevent external modification
     }
 }
