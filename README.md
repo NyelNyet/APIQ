@@ -2,7 +2,6 @@
 
 This is a desktop application built with JavaFX for managing the collection and distribution of Zakat. The system provides a user-friendly graphical interface (GUI) for two types of users: Public Users and a system Administrator. It allows for the registration of Zakat payers and Asnaf (recipients), and provides administrative tools for managing applications and generating reports.
 
->>>>>>> 1baea81 (Update README.md)
 ## ✨ Features
 
 - **Dual User Portals:** Separate interfaces and functionalities for Public Users and Administrators.
