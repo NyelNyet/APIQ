@@ -1,4 +1,7 @@
-//Danial Harith bin Mohd Sukeri 2411467
+/*
+Danial Harith bin Mohd Sukeri 2411467
+abstract Parent as for 8 type of Asnaf. this class will contain the common information of the asnaf.
+*/
 
 package User.Asnaf;
 
