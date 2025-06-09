@@ -185,7 +185,7 @@ public class FileManager {
         }
     }
 
-    private void zakatReportWrite(Asnaf asnaf){
+    public void zakatReportWrite(Asnaf asnaf){
         try{
             String fileName = "ZakatReport.txt";
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
