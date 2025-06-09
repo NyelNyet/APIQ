@@ -6,10 +6,12 @@ import User.Asnaf.*;
 public class DataManager {
     private List<Asnaf> asnafList;
     private List<ZakatPayer> zakatPayerList;
+    private List<String> zakatReport;
 
     public DataManager(){
         asnafList = new ArrayList<>();
         zakatPayerList = new ArrayList<>();
+        zakatReport = new ArrayList<>();
     }
 
     public void addAsnaf(Asnaf asnaf){
@@ -25,7 +27,7 @@ public class DataManager {
     }
 
     public void getAllAsnafDetail(){
-        asnafList.forEach(x -> System.out.println(x.toString()+'\n'));
+        asnafList.forEach(x -> System.out.println(x.toString()));
     }
 
     public List<ZakatPayer> getZakatPayerList() {
@@ -34,5 +36,13 @@ public class DataManager {
 
     public List<Asnaf> getAsnafList(){
         return asnafList;
-    }   
+    }
+
+    public void addZakatReport(Asnaf asnaf){
+        zakatReport.add(asnaf.toString());
+    }
+
+    public List<String> getZakatReportList() {
+        return zakatReport;
+    }
 }

@@ -3,6 +3,20 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "ZakatGUI",
+			"request": "launch",
+			"mainClass": "ZakatGUI",
+			"projectName": "apiq_cc05fa42"
+		},
+		{
+			"type": "java",
+			"name": "FinalZakatGUI",
+			"request": "launch",
+			"mainClass": "FinalZakatGUI",
+			"projectName": "apiq_cc05fa42"
+		},
+		{
+			"type": "java",
 			"name": "AppDanial",
 			"request": "launch",
 			"mainClass": "AppDanial",

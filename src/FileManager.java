@@ -184,4 +184,18 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    private void zakatReportWrite(Asnaf asnaf){
+        try{
+            String fileName = "ZakatReport.txt";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getAmountRecieved()+";"+asnaf.getTypeOfAsnaf());
+            writer.newLine();
+            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
+
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

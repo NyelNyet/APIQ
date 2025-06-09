@@ -58,6 +58,10 @@ public abstract class Asnaf extends User{
         this.amountRecieved = amountRecieved;
     }
 
+    public double getAmountRecieved() {
+        return amountRecieved;
+    }
+
     @Override
     public abstract String toString();
 
