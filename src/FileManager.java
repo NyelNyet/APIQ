@@ -198,4 +198,39 @@ public class FileManager {
             e.printStackTrace();
         }
     }
+
+    public void removeAsnaf(Asnaf asnaf) {
+        
+        String fileName = asnaf.getTypeOfAsnaf() + ".txt";
+        File inputFile = new File(fileName);
+        
+        File tempFile = new File("temp_delete.txt");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            
+            String lineToRemove = String.valueOf(asnaf.getUserID());
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+
+                if (currentLine.startsWith(lineToRemove + ";")) {
+                    continue;
+                }
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return; // Exit if there's an error
+        }
+        
+        if (!inputFile.delete()) {
+            System.out.println("Could not delete the original file.");
+            return;
+        }
+
+        if (!tempFile.renameTo(inputFile)) {
+            System.out.println("Could not rename the temporary file.");
+        }
+    }
 }
