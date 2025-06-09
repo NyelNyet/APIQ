@@ -127,6 +127,7 @@ public class ZakatGUI extends Application {
         BorderPane mainLayout = new BorderPane();
         mainLayout.setPadding(new Insets(10));
 
+        //Danial Harith bin Mohd Sukeri 2411467
         asnafListView.setItems(FXCollections.observableArrayList(dm.getAsnafList()));
         payerListView.setItems(FXCollections.observableArrayList(dm.getZakatPayerList()));
 
@@ -230,7 +231,8 @@ public class ZakatGUI extends Application {
         
         TextField amountField = new TextField();
         amountField.setPromptText("Enter amount to transfer");
-        
+
+        //Danial Harith bin Mohd Sukeri 2411467
         Button approveButton = new Button("Approve & Transfer");
         approveButton.setOnAction(e -> {
             try {
@@ -244,7 +246,8 @@ public class ZakatGUI extends Application {
                 new Alert(AlertType.ERROR, "An unexpected error occurred: " + ex.getMessage()).show();
             }
         });
-        
+
+        //Danial Harith bin Mohd Sukeri 2411467
         Button rejectButton = new Button("Reject Application");
         rejectButton.setOnAction(e -> {
             asnaf.sendNotification(asnaf.getName(), "Your application has been rejected.");
@@ -305,6 +308,7 @@ public class ZakatGUI extends Application {
         });
     }
 
+    //Danial Harith bin Mohd Sukeri 2411467
     private void readAllData() {
         if (!dm.getAsnafList().isEmpty()) return;
 
