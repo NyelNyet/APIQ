@@ -58,15 +58,15 @@ public abstract class Asnaf extends User{
     public abstract String toString();
 
     public String deftoString(){
-        return "name= " + name + ", " +
-                ", phoneNumber= " + phoneNumber + ", " +
-                ", email= " + email + ", " +
-                ", address= " + address + ", " +
-                ", age= " + age + ", " +
-                ", monthlyIncome= " + monthlyIncome + ", " +
-                ", monthlyExpenses= " + monthlyExpenses + ", " +
-                ", familyInformation= " + familyInformation + ", " +
-                ", typeOfAsnaf= " + typeOfAsnaf + ", " +
-                ", dateOfApplication= " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
-    };
+        return "name: " + name +
+                ", phoneNumber: " + phoneNumber +
+                ", email: " + email +
+                ", address: " + address +
+                ", age: " + age +
+                ", monthlyIncome: " + monthlyIncome +
+                ", monthlyExpenses: " + monthlyExpenses +
+                ", familyInformation: " + familyInformation +
+                ", typeOfAsnaf: " + typeOfAsnaf +
+                ", dateOfApplication: " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+    }
 }

@@ -21,17 +21,17 @@ public class AlGharimoon extends Asnaf {
 
     @Override
     public String toString() {
-        return "name= " + name +
-                ", phoneNumber= " + phoneNumber+
-                ", email= " + email +
-                ", address= " + address +
-                ", age= " + age +
-                ", monthlyIncome= " + monthlyIncome +
-                ", monthlyExpenses= " + monthlyExpenses +
-                ", familyInformation= " + familyInformation +
-                ", typeOfAsnaf= " + typeOfAsnaf +
-                ", dateOfApplication= " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
-                ", debtAmount= " + debtAmount;
+        return "name: " + name +
+                ", phoneNumber: " + phoneNumber+
+                ", email: " + email +
+                ", address: " + address +
+                ", age: " + age +
+                ", monthlyIncome: " + monthlyIncome +
+                ", monthlyExpenses: " + monthlyExpenses +
+                ", familyInformation: " + familyInformation +
+                ", typeOfAsnaf: " + typeOfAsnaf +
+                ", dateOfApplication: " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
+                ", debtAmount: " + debtAmount;
     }
 
 }

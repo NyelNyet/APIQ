@@ -34,6 +34,5 @@ public class DataManager {
 
     public List<Asnaf> getAsnafList(){
         return asnafList;
-    }
-    
+    }   
 }

@@ -1,15 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package User;
-
-import java.util.ArrayList;
-import java.util.List;
-/**
- *
- * @author syahi
- */
 
 public class ZakatPayer extends User{
     private double zakatAmount;
@@ -40,13 +29,11 @@ public class ZakatPayer extends User{
 
     @Override
     public String toString() {
-        return  "name: " + name  + ", " +
-                ", phoneNumber: " + phoneNumber  + ", " +
-                ", email: " + email  + ", " +
-                ", address: " + address  + ", " +
-                ", age: "  + age + ", " +
+        return "name: " + name +
+                ", phoneNumber: " + phoneNumber +
+                ", email: " + email +
+                ", address: " + address +
+                ", age: " + age +
                 ", zakatAmount: " + zakatAmount;
     }
-
-    
 }

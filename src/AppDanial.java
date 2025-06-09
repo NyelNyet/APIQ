@@ -21,7 +21,6 @@ public class AppDanial extends Application {
     @Override
     public void start(Stage primaryStage) {
         readAllData();
-        dm.getAllAsnafDetail();
 
         // ListView to display existing users
         ListView<Asnaf> asnafListView = new ListView<>();

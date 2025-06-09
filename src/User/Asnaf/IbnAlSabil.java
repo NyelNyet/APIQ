@@ -12,21 +12,6 @@ public class IbnAlSabil extends Asnaf {
         this.reasonForBeingStranded = reasonForBeingStranded;
     }
 
-    @Override
-    public String toString() {
-        return "name= " + name +
-                ", phoneNumber= " + phoneNumber +
-                ", email= " + email +
-                ", address= " + address +
-                ", age= " + age +
-                ", monthlyIncome= " + monthlyIncome +
-                ", monthlyExpenses= " + monthlyExpenses +
-                ", familyInformation= " + familyInformation +
-                ", typeOfAsnaf= " + typeOfAsnaf +
-                ", dateOfApplication= " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
-                ", reasonForBeingStranded= " + reasonForBeingStranded;
-    }
-
     public String getReasonForBeingStranded() {
         return reasonForBeingStranded;
     }
@@ -35,4 +20,18 @@ public class IbnAlSabil extends Asnaf {
         this.reasonForBeingStranded = reasonForBeingStranded;
     }
 
+    @Override
+    public String toString() {
+        return "name: " + name +
+                ", phoneNumber: " + phoneNumber +
+                ", email: " + email +
+                ", address: " + address +
+                ", age: " + age +
+                ", monthlyIncome: " + monthlyIncome +
+                ", monthlyExpenses: " + monthlyExpenses +
+                ", familyInformation: " + familyInformation +
+                ", typeOfAsnaf: " + typeOfAsnaf +
+                ", dateOfApplication: " + dateOfApplication.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) +
+                ", reasonForBeingStranded: " + reasonForBeingStranded;
+    }
 }
