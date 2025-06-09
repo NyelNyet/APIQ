@@ -16,8 +16,8 @@ public class Admin extends User{
         return true;
     }
 
-    public void distributeFunds(Asnaf asnaf) {
-        asnaf.setAmountReceived(500);// will be change
+    public void distributeFunds(Asnaf asnaf, double amount) {
+        asnaf.setAmountReceived(amount);// will be change
     }
 
     public boolean login(String inputEmail, String inputPassword) {
