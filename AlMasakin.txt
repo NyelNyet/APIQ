@@ -1,1 +1,1 @@
-29;AHMAD;0122222222;ahmad123@gmail.com;Rumah Ahmad;30;2000.0;1500.0;3 total family members;2025-06-09;AlMasakin
+12;AHMAD;0122222222;ahmad123@gmail.com;Rumah Ahmad;30;2000.0;1500.0;3 total family members;2025-06-09;AlMasakin

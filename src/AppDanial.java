@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import User.*;
 import User.Asnaf.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,8 +27,8 @@ public class AppDanial extends Application {
         ListView<Asnaf> asnafListView = new ListView<>();
         asnafListView.getItems().setAll(dm.getAsnafList()); // Populate ListView
 
-        ListView<Asnaf> payerListView = new ListView<>();
-        payerListView.getItems().setAll(dm.getAsnafList()); // Populate ListView
+        ListView<ZakatPayer> payerListView = new ListView<>();
+        payerListView.getItems().setAll(dm.getZakatPayerList()); // Populate ListView
 
         // Layout
         VBox layout1 = new VBox(10, new Label("Zakat Appliers:"), asnafListView);
@@ -52,7 +53,8 @@ public class AppDanial extends Application {
 
     public void readAllData(){
 
-        List<String[]> allData = fm.asnafFileReader();
+        List<String[]> allData = fm.allFileReader();
+
 
         for(String[] aData : allData){
             switch (aData.length) {
@@ -75,7 +77,9 @@ public class AppDanial extends Application {
                     }
                 }break;
 
-                
+                case 7:{
+                    dm.addZakatPayer(new ZakatPayer(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6])));
+                }break;
             }
         }
     }

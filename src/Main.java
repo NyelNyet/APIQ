@@ -18,6 +18,8 @@ public class Main implements NotificationService{
         User ag = new AlGharimoon("ZAIN","0166666666","gharimoon123@gmail.com","Rumah Zain",32,2700,2200,"6 total family members",15000,"AlGharimoon");
         User fs = new FiSabiLillah("SITI","0177777777","fi_sabilillah123@gmail.com","Rumah Siti",29,2500,2000,"4 total family members","Dakwah","FiSabiLillah");
         User i = new IbnAlSabil("FAIZ","0188888888","faiz123@gmail.com","Rumah Faiz",27,2400,1900,"4 total family members","Travel","IbnAlSabil");
+        User zp = new ZakatPayer("ZAKAT PAYER","0199999999","zakatpayer123@gmail.com","Rumah Zakat Payer",30,3000);
+        User zp2 = new ZakatPayer("ZAKAT PAYER 2","0200000000","zakatpayer2@gmail.com","Rumah Zakat Payer 2",32,3500);
 
         dm.addAsnaf((Asnaf) f1);
         dm.addAsnaf((Asnaf) f2);
@@ -28,20 +30,26 @@ public class Main implements NotificationService{
         dm.addAsnaf((Asnaf) ag);
         dm.addAsnaf((Asnaf) fs);
         dm.addAsnaf((Asnaf) i);
+        dm.addZakatPayer((ZakatPayer) zp);
+        dm.addZakatPayer((ZakatPayer) zp2);
 
-        fm.writeToFile(Optional.of((Asnaf) f1));
-        fm.writeToFile(Optional.of((Asnaf) f2));
-        fm.writeToFile(Optional.of((Asnaf) m));
-        fm.writeToFile(Optional.of((Asnaf) a));
-        fm.writeToFile(Optional.of((Asnaf) mq));
-        fm.writeToFile(Optional.of((Asnaf) ar));
-        fm.writeToFile(Optional.of((Asnaf) ag));
-        fm.writeToFile(Optional.of((Asnaf) fs));
-        fm.writeToFile(Optional.of((Asnaf) i));
+        fm.writeToFile(Optional.of((Asnaf) f1),Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) f2),Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) m), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) a), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) mq), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) ar), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) ag), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) fs), Optional.empty());
+        fm.writeToFile(Optional.of((Asnaf) i), Optional.empty());
+        fm.writeToFile(Optional.empty(), Optional.of((ZakatPayer) zp));
+        fm.writeToFile(Optional.empty(), Optional.of((ZakatPayer) zp2));
 
         dm.getAllAsnafDetail();
+        dm.getAllZakatPayerDetail();
 
-        f2.sendEmail(f2.getName());
+        f2.sendNotification(f2.getName(), "Here's your moneyh");
+        zp.sendNotification(zp.getName(), "Rich AF");
         
     }
 }

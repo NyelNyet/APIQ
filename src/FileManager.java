@@ -3,12 +3,13 @@
 import java.io.*;
 import java.util.*;
 
+import User.*;
 import User.Asnaf.*;
 
 public class FileManager {
 
-    public List<String[]> asnafFileReader(){
-        List<String[]> asnafData = new ArrayList<>();
+    public List<String[]> allFileReader(){
+        List<String[]> allData = new ArrayList<>();
         String[] asnafType = {"AlFuqara","AlMasakin","AlAmilunaAlaiha","AlGharimoon","AlMualafaQulubuhum","AlRiqab","FiSabiLillah","IbnAlSabil"};
 
         for(String asType : asnafType){
@@ -16,14 +17,24 @@ public class FileManager {
             BufferedReader reader = new BufferedReader(new FileReader(asType+".txt"));
             String line;
             while((line = reader.readLine()) != null){
-                asnafData.add(line.split(";"));
+                allData.add(line.split(";"));
             }
             reader.close();
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        return asnafData;
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("ZakatPayer.txt"));
+            String line;
+            while ((line = reader.readLine()) != null){
+                allData.add(line.split(";"));
+            }
+            reader.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return allData;
     }
 
     public List<String[]> payerFileReader(){
@@ -43,7 +54,7 @@ public class FileManager {
         return payerData;
     }
 
-    public void writeToFile(Optional<Asnaf> optionalAsnaf/* , Optional<ZakatPayer> optionalZakatPayer*/){
+    public void writeToFile(Optional<Asnaf> optionalAsnaf, Optional<ZakatPayer> optionalZakatPayer){
         if(optionalAsnaf.isPresent()){
             Asnaf realAsnaf = optionalAsnaf.get();
             switch (realAsnaf.getClass().getSimpleName()) {
@@ -56,9 +67,9 @@ public class FileManager {
             case "FiSabiLillah":fiSabiLillahWrite(realAsnaf);break;
             case "IbnAlSabil":ibnAlSabilWrite(realAsnaf);break;
             } 
-        }/*else if(optionalZakatPayer.isPresent()){
-            optionalZakatPayer.get().zakatPayerWrite();
-        }*/
+        }else if(optionalZakatPayer.isPresent()){
+            zakatPayerWrite(optionalZakatPayer.get());
+        }
         
     }
 
@@ -160,17 +171,17 @@ public class FileManager {
         }
     }
 
-    /*private void zakatPayerWrite(ZakatPayer zakatPayer){
+    private void zakatPayerWrite(ZakatPayer zakatPayer){
         try{
             String fileName = zakatPayer.getClass().getSimpleName()+".txt";
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(zakatPayer.getUserID()+";"+zakatPayer.getName()+";"+zakatPayer.getPhoneNumber()+";"+zakatPayer.getEmail()+";"+zakatPayer.getAddress()+";"+zakatPayer.getAge()+";"+zakatPayer.getZakatAmount());
             writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
+            System.out.println("New "+zakatPayer.getClass()+" has been added to file "+fileName);
 
             writer.close();
         }catch(Exception e){
             e.printStackTrace();
         }
-    }*/
+    }
 }

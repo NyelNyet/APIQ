@@ -3,6 +3,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "AppDanial",
+			"request": "launch",
+			"mainClass": "AppDanial",
+			"projectName": "apiq_cc05fa42"
+		},
+		{
+			"type": "java",
 			"name": "Main",
 			"request": "launch",
 			"mainClass": "Main",
