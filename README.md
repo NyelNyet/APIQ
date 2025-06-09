@@ -1,8 +1,4 @@
-Of course! Here is a comprehensive README file generated based on the structure and content of your Java project.
-
----
-
-# Zakat Management System
+## Zakat Management System
 
 This is a desktop application built with JavaFX for managing the collection and distribution of Zakat. The system provides a user-friendly graphical interface (GUI) for two types of users: Public Users and a system Administrator. It allows for the registration of Zakat payers and Asnaf (recipients), and provides administrative tools for managing applications and generating reports.
 
