@@ -40,12 +40,12 @@ public class ZakatPayer extends User{
 
     @Override
     public String toString() {
-        return  "name= " + name  + ", " +
-                ", phoneNumber= " + phoneNumber  + ", " +
-                ", email= " + email  + ", " +
-                ", address= " + address  + ", " +
-                ", age= "  + age + ", " +
-                ", zakatAmount= " + zakatAmount;
+        return  "name: " + name  + ", " +
+                ", phoneNumber: " + phoneNumber  + ", " +
+                ", email: " + email  + ", " +
+                ", address: " + address  + ", " +
+                ", age: "  + age + ", " +
+                ", zakatAmount: " + zakatAmount;
     }
 
     
