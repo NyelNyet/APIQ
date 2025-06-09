@@ -66,7 +66,7 @@ public class ZakatGUI extends Application {
         primaryStage.setScene(homepageScene);
         primaryStage.show();
     }
-    
+    //done by 2413801_FARIS
     private Scene createHomepageScene() {
         VBox layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
@@ -89,7 +89,7 @@ public class ZakatGUI extends Application {
         layout.getChildren().addAll(title, adminButton, publicButton);
         return new Scene(layout, 600, 400);
     }
-
+//done by 2413801_FARIS
     private Scene createLoginScene() {
         VBox layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
@@ -120,7 +120,7 @@ public class ZakatGUI extends Application {
         layout.getChildren().addAll(title, emailField, passwordField, loginButton, errorLabel, backButton);
         return new Scene(layout, 400, 350);
     }
-    
+    //done by 2412657_FAUZI
     private Scene createMainScene() {
         readAllData();
 
@@ -189,7 +189,7 @@ public class ZakatGUI extends Application {
         payerListView.getSelectionModel().clearSelection();
         primaryStage.setScene(scene);
     }
-    
+        //done by 2413801_FARIS
     private void updateControlsVisibility() {
         logoutButton.setVisible(isAdminLoggedIn);
     }
@@ -254,7 +254,8 @@ public class ZakatGUI extends Application {
         adminPanel.getChildren().addAll(adminTitle, new Label("Fund Distribution:"), amountField, new HBox(10, approveButton, rejectButton));
         return adminPanel;
     }
-
+    
+    //done by 2418289_IKHWAN
     private void handleAddPayer() {
         Dialog<ZakatPayer> dialog = new Dialog<>();
         GridPane grid = new GridPane();
@@ -288,7 +289,8 @@ public class ZakatGUI extends Application {
             dm.addZakatPayer(payer);
         });
     }
-
+    
+    //done by 2412657_FAUZI
     private void handleAddAsnaf() {
         Dialog<Asnaf> dialog = new Dialog<>();
         TextField nameField = new TextField("New Asnaf");
