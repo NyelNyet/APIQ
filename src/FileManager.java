@@ -1,4 +1,8 @@
-//Danial Harith bin Mohd Sukeri 2411467
+/*
+Danial Harith bin Mohd Sukeri 2411467
+This class will encompasses all file necessaries such as file writing, file reading.
+file writing will store to  txt file while file reading will read from the file into DataManager class
+*/
 
 import java.io.*;
 import java.util.ArrayList;
