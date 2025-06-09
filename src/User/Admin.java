@@ -2,7 +2,7 @@ package User;
 
 import User.Asnaf.*;
 
-public class Admin extends User implements AuthLogIn {
+public class Admin extends User{
     private String password;
 
     public Admin(String name, String phoneNumber, String email, String address, int age, String password) {
