@@ -1,1 +1,1 @@
-15;KHAIRUL;0155555555;riqab123@gmail.com;Rumah Khairul;28;2200.0;1800.0;2 total family members;2025-06-09;Debt Slavery;AlRiqab
+0;KHAIRUL;0155555555;riqab123@gmail.com;Rumah Khairul;28;2200.0;1800.0;2 total family members;2025-06-10;Debt Slavery;AlRiqab
