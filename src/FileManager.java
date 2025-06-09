@@ -1,236 +1,105 @@
-
-
 import java.io.*;
-import java.util.*;
-
-import User.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import User.Asnaf.*;
+import User.ZakatPayer;
 
 public class FileManager {
 
-    public List<String[]> allFileReader(){
-        List<String[]> allData = new ArrayList<>();
-        String[] asnafType = {"AlFuqara","AlMasakin","AlAmilunaAlaiha","AlGharimoon","AlMualafaQulubuhum","AlRiqab","FiSabiLillah","IbnAlSabil"};
+    private final String[] asnafFileNames = {
+        "AlFuqara.txt", "AlMasakin.txt", "AlAmilunaAlaiha.txt", "AlGharimoon.txt", 
+        "AlMualafaQulubuhum.txt", "AlRiqab.txt", "FiSabiLillah.txt", "IbnAlSabil.txt"
+    };
 
-        for(String asType : asnafType){
-            try{
-            BufferedReader reader = new BufferedReader(new FileReader(asType+".txt"));
-            String line;
-            while((line = reader.readLine()) != null){
-                allData.add(line.split(";"));
-            }
-            reader.close();
-            }catch(Exception e){
-                e.printStackTrace();
+    public List<String[]> allFileReader() {
+        List<String[]> allData = new ArrayList<>();
+        for (String fileName : asnafFileNames) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    allData.add(line.split(";"));
+                }
+            } catch (IOException e) {
             }
         }
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("ZakatPayer.txt"));
+        try (BufferedReader reader = new BufferedReader(new FileReader("ZakatPayer.txt"))) {
             String line;
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 allData.add(line.split(";"));
             }
-            reader.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
         }
         return allData;
     }
 
-    public List<String[]> payerFileReader(){
-        List<String[]> payerData = new ArrayList<>();
-
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("ZakatPayer.txt"));
-            String line;
-            while ((line = reader.readLine()) != null){
-                payerData.add(line.split(";"));
+    public void writeToFile(Optional<Asnaf> optionalAsnaf, Optional<ZakatPayer> optionalZakatPayer) {
+        if (optionalAsnaf.isPresent()) {
+            Asnaf asnaf = optionalAsnaf.get();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(asnaf.getTypeOfAsnaf() + ".txt", true))) {
+                writer.write(asnafToCsvString(asnaf));
+                writer.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            reader.close();
-        }catch(Exception e){
-            e.printStackTrace();
         }
-
-        return payerData;
-    }
-
-    public void writeToFile(Optional<Asnaf> optionalAsnaf, Optional<ZakatPayer> optionalZakatPayer){
-        if(optionalAsnaf.isPresent()){
-            Asnaf realAsnaf = optionalAsnaf.get();
-            switch (realAsnaf.getClass().getSimpleName()) {
-            case "AlFuqara":
-            case "AlMasakin":fuqaraMasakinWrite(realAsnaf);break;
-            case "AlAmilunaAlaiha":amilunaAlaihaWrite(realAsnaf);break;
-            case "AlGharimoon":gharimoonWrite(realAsnaf);break;
-            case "AlMualafaQulubuhum":mualafaQulubuhumWrite(realAsnaf);break;
-            case "AlRiqab":riqabWrite(realAsnaf);break;
-            case "FiSabiLillah":fiSabiLillahWrite(realAsnaf);break;
-            case "IbnAlSabil":ibnAlSabilWrite(realAsnaf);break;
-            } 
-        }else if(optionalZakatPayer.isPresent()){
-            zakatPayerWrite(optionalZakatPayer.get());
-        }
-        
-    }
-
-    private void fuqaraMasakinWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        if (optionalZakatPayer.isPresent()) {
+            ZakatPayer payer = optionalZakatPayer.get();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("ZakatPayer.txt", true))) {
+                writer.write(payerToCsvString(payer));
+                writer.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+    
+    public void rewriteAllAsnafFiles(List<Asnaf> asnafList) {
+        Map<String, List<Asnaf>> groupedAsnaf = asnafList.stream()
+            .collect(Collectors.groupingBy(Asnaf::getTypeOfAsnaf));
 
-    private void amilunaAlaihaWrite(Asnaf asnaf) {
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((AlAmilunaAlaiha) asnaf).getZakatAgency()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void gharimoonWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((AlGharimoon) asnaf).getDebtAmount()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void mualafaQulubuhumWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((AlMualafaQulubuhum) asnaf).getDateOfConversion()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void riqabWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((AlRiqab) asnaf).getTypeOfCaptivity()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void fiSabiLillahWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((FiSabiLillah) asnaf).getAcitivityInTheCauseOfAllah()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void ibnAlSabilWrite(Asnaf asnaf){
-        try{
-            String fileName = asnaf.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getMonthlyIncome()+";"+asnaf.getMonthlyExpenses()+";"+asnaf.getFamilyInformation()+";"+asnaf.getDateOfApplication()+";"+((IbnAlSabil) asnaf).getReasonForBeingStranded()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void zakatPayerWrite(ZakatPayer zakatPayer){
-        try{
-            String fileName = zakatPayer.getClass().getSimpleName()+".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(zakatPayer.getUserID()+";"+zakatPayer.getName()+";"+zakatPayer.getPhoneNumber()+";"+zakatPayer.getEmail()+";"+zakatPayer.getAddress()+";"+zakatPayer.getAge()+";"+zakatPayer.getZakatAmount());
-            writer.newLine();
-            System.out.println("New "+zakatPayer.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void zakatReportWrite(Asnaf asnaf){
-        try{
-            String fileName = "ZakatReport.txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(asnaf.getUserID()+";"+asnaf.getName()+";"+asnaf.getPhoneNumber()+";"+asnaf.getEmail()+";"+asnaf.getAddress()+";"+asnaf.getAge()+";"+asnaf.getAmountRecieved()+";"+asnaf.getTypeOfAsnaf());
-            writer.newLine();
-            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
-
-            writer.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void removeAsnaf(Asnaf asnaf) {
-        
-        String fileName = asnaf.getTypeOfAsnaf() + ".txt";
-        File inputFile = new File(fileName);
-        
-        File tempFile = new File("temp_delete.txt");
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        for (String asnafType : asnafFileNames) {
+            String cleanAsnafType = asnafType.replace(".txt", "");
+            List<Asnaf> listForType = groupedAsnaf.getOrDefault(cleanAsnafType, new ArrayList<>());
             
-            String lineToRemove = String.valueOf(asnaf.getUserID());
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null) {
-
-                if (currentLine.startsWith(lineToRemove + ";")) {
-                    continue;
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(asnafType, false))) {
+                for (Asnaf asnaf : listForType) {
+                    writer.write(asnafToCsvString(asnaf));
+                    writer.newLine();
                 }
-                writer.write(currentLine + System.getProperty("line.separator"));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return; // Exit if there's an error
         }
+    }
+
+    private String asnafToCsvString(Asnaf asnaf) {
+        String base = asnaf.getUserID() + ";" + asnaf.getName() + ";" + asnaf.getPhoneNumber() + ";" + asnaf.getEmail() + ";" + 
+                      asnaf.getAddress() + ";" + asnaf.getAge() + ";" + asnaf.getMonthlyIncome() + ";" + 
+                      asnaf.getMonthlyExpenses() + ";" + asnaf.getFamilyInformation();
         
-        if (!inputFile.delete()) {
-            System.out.println("Could not delete the original file.");
-            return;
+        String specificPart = "";
+        switch(asnaf.getTypeOfAsnaf()) {
+            case "AlAmilunaAlaiha": specificPart = ";" + ((AlAmilunaAlaiha) asnaf).getZakatAgency(); break;
+            case "AlGharimoon": specificPart = ";" + ((AlGharimoon) asnaf).getDebtAmount(); break;
+            case "AlMualafaQulubuhum": specificPart = ";" + ((AlMualafaQulubuhum) asnaf).getDateOfConversion(); break;
+            case "AlRiqab": specificPart = ";" + ((AlRiqab) asnaf).getTypeOfCaptivity(); break;
+            case "FiSabiLillah": specificPart = ";" + ((FiSabiLillah) asnaf).getAcitivityInTheCauseOfAllah(); break;
+            case "IbnAlSabil": specificPart = ";" + ((IbnAlSabil) asnaf).getReasonForBeingStranded(); break;
+            default: specificPart = "";
         }
 
-        if (!tempFile.renameTo(inputFile)) {
-            System.out.println("Could not rename the temporary file.");
+        if (asnaf instanceof AlFuqara || asnaf instanceof AlMasakin) {
+            return base + ";" + asnaf.getDateOfApplication() + ";" + asnaf.getTypeOfAsnaf();
+        } else {
+             return base + ";" + asnaf.getDateOfApplication() + specificPart + ";" + asnaf.getTypeOfAsnaf();
         }
+    }
+
+    private String payerToCsvString(ZakatPayer payer) {
+        return payer.getUserID() + ";" + payer.getName() + ";" + payer.getPhoneNumber() + ";" + payer.getEmail() + ";" + 
+               payer.getAddress() + ";" + payer.getAge() + ";" + payer.getZakatAmount();
     }
 }

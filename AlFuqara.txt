@@ -1,4 +1,3 @@
-10;MINAH;0111111111;minah123@gmail.com;Rumah Minah;25;1500.0;1000.0;5 total family members;2025-06-09;AlFuqara
-11;AHMAD;0111111112;ahmad123@gmail.com;Rumah Ahmad;30;2000.0;1500.0;3 total family members;2025-06-09;AlFuqara
-261;New Asnaf;0100000000;new@email.com;address;30;1000.0;800.0;family;2025-06-10;AlFuqara
-376;New Asnaf;0100000000;new@email.com;123 Jalan Ampang;35;1200.0;1000.0;Married with 2 children;2025-06-10;AlFuqara
+115;MINAH;0111111111;minah123@gmail.com;Rumah Minah;25;1500.0;1000.0;5 total family members;2025-06-10;AlFuqara
+116;AHMAD;0111111112;ahmad123@gmail.com;Rumah Ahmad;30;2000.0;1500.0;3 total family members;2025-06-10;AlFuqara
+132;balmond;1234567;ml.com;pqwf;12;1214214.0;124.0;married;2025-06-10;AlFuqara
