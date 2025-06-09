@@ -1,8 +1,10 @@
 import java.time.LocalDate;
+import java.util.Optional;
 
 import User.*;
 import User.Asnaf.*;
 
+//Methods Testing Purposes//
 public class Main implements NotificationService{
     public static void main(String[] args) {
         DataManager dm = new DataManager();
@@ -27,15 +29,15 @@ public class Main implements NotificationService{
         dm.addAsnaf((Asnaf) fs);
         dm.addAsnaf((Asnaf) i);
 
-        fm.writeToFile((Asnaf) f1);
-        fm.writeToFile((Asnaf) f2);
-        fm.writeToFile((Asnaf) m);
-        fm.writeToFile((Asnaf) a);
-        fm.writeToFile((Asnaf) mq);
-        fm.writeToFile((Asnaf) ar);
-        fm.writeToFile((Asnaf) ag);
-        fm.writeToFile((Asnaf) fs);
-        fm.writeToFile((Asnaf) i);
+        fm.writeToFile(Optional.of((Asnaf) f1));
+        fm.writeToFile(Optional.of((Asnaf) f2));
+        fm.writeToFile(Optional.of((Asnaf) m));
+        fm.writeToFile(Optional.of((Asnaf) a));
+        fm.writeToFile(Optional.of((Asnaf) mq));
+        fm.writeToFile(Optional.of((Asnaf) ar));
+        fm.writeToFile(Optional.of((Asnaf) ag));
+        fm.writeToFile(Optional.of((Asnaf) fs));
+        fm.writeToFile(Optional.of((Asnaf) i));
 
         dm.getAllAsnafDetail();
 

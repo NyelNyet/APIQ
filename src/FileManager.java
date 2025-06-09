@@ -7,7 +7,7 @@ import User.Asnaf.*;
 
 public class FileManager {
 
-    public List<String[]> allFileReader(){
+    public List<String[]> asnafFileReader(){
         List<String[]> asnafData = new ArrayList<>();
         String[] asnafType = {"AlFuqara","AlMasakin","AlAmilunaAlaiha","AlGharimoon","AlMualafaQulubuhum","AlRiqab","FiSabiLillah","IbnAlSabil"};
 
@@ -26,17 +26,40 @@ public class FileManager {
         return asnafData;
     }
 
-    public void writeToFile(Asnaf asnaf){
-        switch (asnaf.getClass().getSimpleName()) {
+    public List<String[]> payerFileReader(){
+        List<String[]> payerData = new ArrayList<>();
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("ZakatPayer.txt"));
+            String line;
+            while ((line = reader.readLine()) != null){
+                payerData.add(line.split(";"));
+            }
+            reader.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return payerData;
+    }
+
+    public void writeToFile(Optional<Asnaf> optionalAsnaf/* , Optional<ZakatPayer> optionalZakatPayer*/){
+        if(optionalAsnaf.isPresent()){
+            Asnaf realAsnaf = optionalAsnaf.get();
+            switch (realAsnaf.getClass().getSimpleName()) {
             case "AlFuqara":
-            case "AlMasakin":fuqaraMasakinWrite(asnaf);break;
-            case "AlAmilunaAlaiha":amilunaAlaihaWrite(asnaf);break;
-            case "AlGharimoon":gharimoonWrite(asnaf);break;
-            case "AlMualafaQulubuhum":mualafaQulubuhumWrite(asnaf);break;
-            case "AlRiqab":riqabWrite(asnaf);break;
-            case "FiSabiLillah":fiSabiLillahWrite(asnaf);break;
-            case "IbnAlSabil":ibnAlSabilWrite(asnaf);break;
-        } 
+            case "AlMasakin":fuqaraMasakinWrite(realAsnaf);break;
+            case "AlAmilunaAlaiha":amilunaAlaihaWrite(realAsnaf);break;
+            case "AlGharimoon":gharimoonWrite(realAsnaf);break;
+            case "AlMualafaQulubuhum":mualafaQulubuhumWrite(realAsnaf);break;
+            case "AlRiqab":riqabWrite(realAsnaf);break;
+            case "FiSabiLillah":fiSabiLillahWrite(realAsnaf);break;
+            case "IbnAlSabil":ibnAlSabilWrite(realAsnaf);break;
+            } 
+        }/*else if(optionalZakatPayer.isPresent()){
+            optionalZakatPayer.get().zakatPayerWrite();
+        }*/
+        
     }
 
     private void fuqaraMasakinWrite(Asnaf asnaf){
@@ -137,4 +160,17 @@ public class FileManager {
         }
     }
 
+    /*private void zakatPayerWrite(ZakatPayer zakatPayer){
+        try{
+            String fileName = zakatPayer.getClass().getSimpleName()+".txt";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+            writer.write(zakatPayer.getUserID()+";"+zakatPayer.getName()+";"+zakatPayer.getPhoneNumber()+";"+zakatPayer.getEmail()+";"+zakatPayer.getAddress()+";"+zakatPayer.getAge()+";"+zakatPayer.getZakatAmount());
+            writer.newLine();
+            System.out.println("New "+asnaf.getClass()+" has been added to file "+fileName);
+
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }*/
 }
