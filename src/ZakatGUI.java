@@ -85,7 +85,7 @@ public class ZakatGUI extends Application {
         primaryStage.setScene(homepageScene);
         primaryStage.show();
     }
-    
+    // done by 2413801_FARIS
     private Scene createHomepageScene() {
         VBox layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
@@ -108,7 +108,7 @@ public class ZakatGUI extends Application {
         layout.getChildren().addAll(title, adminButton, publicButton);
         return new Scene(layout, 600, 400);
     }
-
+    // done by 2413801_FARIS
     private Scene createLoginScene() {
         VBox layout = new VBox(20);
         layout.setAlignment(Pos.CENTER);
@@ -140,7 +140,7 @@ public class ZakatGUI extends Application {
         layout.getChildren().addAll(title, emailField, passwordField, loginButton, errorLabel, backBtn);
         return new Scene(layout, 400, 350);
     }
-    
+     // done by 2412657_FAUZI
     private Scene createMainScene() {
         readAllData();
         BorderPane mainLayout = new BorderPane();
@@ -217,7 +217,7 @@ public class ZakatGUI extends Application {
         reportLabel.setVisible(isAdminLoggedIn);
         generateReportButton.setVisible(isAdminLoggedIn);
     }
-
+    
     private void updateDetailsPanel(User user) {
         detailsPanel.getChildren().clear();
 
@@ -265,7 +265,7 @@ public class ZakatGUI extends Application {
             grid.add(new Label("Zakat Paid:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", ((ZakatPayer) user).getZakatAmount())), 1, rowIndex++);
         }
     }
-    
+    // 
     private void displayReportInDetailsPanel() {
         detailsPanel.getChildren().clear();
         Label title = new Label("System Data Report");
