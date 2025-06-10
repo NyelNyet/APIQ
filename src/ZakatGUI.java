@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -170,7 +171,6 @@ public class ZakatGUI extends Application {
         mainLayout.setLeft(leftPanel);
 
         detailsPanel.setPadding(new Insets(0, 10, 0, 20));
-        // NEW: Wrap the details panel in a ScrollPane to handle overflow
         mainLayout.setCenter(new ScrollPane(detailsPanel));
         updateDetailsPanel(null); 
 
@@ -218,9 +218,6 @@ public class ZakatGUI extends Application {
         generateReportButton.setVisible(isAdminLoggedIn);
     }
 
-    /**
-     * UPDATED: This method now displays all data for a selected Asnaf.
-     */
     private void updateDetailsPanel(User user) {
         detailsPanel.getChildren().clear();
 
@@ -252,22 +249,14 @@ public class ZakatGUI extends Application {
             grid.add(new Label("Monthly Income:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", asnaf.getMonthlyIncome())), 1, rowIndex++);
             grid.add(new Label("Monthly Expenses:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", asnaf.getMonthlyExpenses())), 1, rowIndex++);
             grid.add(new Label("Family Info:"), 0, rowIndex); grid.add(new Label(asnaf.getFamilyInformation()), 1, rowIndex++);
-            grid.add(new Label("Application Date:"), 0, rowIndex); grid.add(new Label(asnaf.getDateOfApplication().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))), 1, rowIndex++);
+            grid.add(new Label("Application Date:"), 0, rowIndex); grid.add(new Label(asnaf.getDateOfApplication().format(DateTimeFormatter.ofPattern("dd MMM uuuu"))), 1, rowIndex++);
             
-            // Display category-specific details
-            if (asnaf instanceof AlAmilunaAlaiha) {
-                grid.add(new Label("Zakat Agency:"), 0, rowIndex); grid.add(new Label(((AlAmilunaAlaiha) asnaf).getZakatAgency()), 1, rowIndex++);
-            } else if (asnaf instanceof AlGharimoon) {
-                grid.add(new Label("Debt Amount:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", ((AlGharimoon) asnaf).getDebtAmount())), 1, rowIndex++);
-            } else if (asnaf instanceof AlMualafaQulubuhum) {
-                grid.add(new Label("Conversion Date:"), 0, rowIndex); grid.add(new Label(((AlMualafaQulubuhum) asnaf).getDateOfConversion().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))), 1, rowIndex++);
-            } else if (asnaf instanceof AlRiqab) {
-                grid.add(new Label("Type of Captivity:"), 0, rowIndex); grid.add(new Label(((AlRiqab) asnaf).getTypeOfCaptivity()), 1, rowIndex++);
-            } else if (asnaf instanceof FiSabiLillah) {
-                grid.add(new Label("Activity:"), 0, rowIndex); grid.add(new Label(((FiSabiLillah) asnaf).getAcitivityInTheCauseOfAllah()), 1, rowIndex++);
-            } else if (asnaf instanceof IbnAlSabil) {
-                grid.add(new Label("Reason Stranded:"), 0, rowIndex); grid.add(new Label(((IbnAlSabil) asnaf).getReasonForBeingStranded()), 1, rowIndex++);
-            }
+            if (asnaf instanceof AlAmilunaAlaiha) {grid.add(new Label("Zakat Agency:"), 0, rowIndex); grid.add(new Label(((AlAmilunaAlaiha) asnaf).getZakatAgency()), 1, rowIndex++);}
+            else if (asnaf instanceof AlGharimoon) {grid.add(new Label("Debt Amount:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", ((AlGharimoon) asnaf).getDebtAmount())), 1, rowIndex++);}
+            else if (asnaf instanceof AlMualafaQulubuhum) {grid.add(new Label("Conversion Date:"), 0, rowIndex); grid.add(new Label(((AlMualafaQulubuhum) asnaf).getDateOfConversion().format(DateTimeFormatter.ofPattern("dd MMM uuuu"))), 1, rowIndex++);}
+            else if (asnaf instanceof AlRiqab) {grid.add(new Label("Type of Captivity:"), 0, rowIndex); grid.add(new Label(((AlRiqab) asnaf).getTypeOfCaptivity()), 1, rowIndex++);}
+            else if (asnaf instanceof FiSabiLillah) {grid.add(new Label("Activity:"), 0, rowIndex); grid.add(new Label(((FiSabiLillah) asnaf).getAcitivityInTheCauseOfAllah()), 1, rowIndex++);}
+            else if (asnaf instanceof IbnAlSabil) {grid.add(new Label("Reason Stranded:"), 0, rowIndex); grid.add(new Label(((IbnAlSabil) asnaf).getReasonForBeingStranded()), 1, rowIndex++);}
             
             if (isAdminLoggedIn) {
                 detailsPanel.getChildren().add(createAdminActionPanel(asnaf));
@@ -285,27 +274,20 @@ public class ZakatGUI extends Application {
         VBox reportContent = new VBox(10);
         reportContent.setPadding(new Insets(10, 0, 0, 0));
 
-        int payerCount = dataManager.getZakatPayerList().size();
-        double totalZakat = dataManager.getZakatPayerList().stream().mapToDouble(ZakatPayer::getZakatAmount).sum();
         Label payerHeader = new Label("Payer Summary");
         payerHeader.setFont(Font.font(null, FontWeight.BOLD, 14));
-        Label payerCountLabel = new Label("Total Zakat Payers: " + payerCount);
-        Label totalZakatLabel = new Label(String.format("Total Zakat Collected: RM %.2f", totalZakat));
+        Label payerCountLabel = new Label("Total Zakat Payers: " + dataManager.getZakatPayerList().size());
+        Label totalZakatLabel = new Label(String.format("Total Zakat Collected: RM %.2f", dataManager.getZakatPayerList().stream().mapToDouble(ZakatPayer::getZakatAmount).sum()));
         
-        int asnafCount = dataManager.getAsnafList().size();
         Label asnafHeader = new Label("Asnaf (Recipient) Summary");
         asnafHeader.setFont(Font.font(null, FontWeight.BOLD, 14));
-        Label asnafCountLabel = new Label("Total Asnaf Registered: " + asnafCount);
+        Label asnafCountLabel = new Label("Total Asnaf Registered: " + dataManager.getAsnafList().size());
         
         VBox asnafBreakdownBox = new VBox(5);
         asnafBreakdownBox.getChildren().add(new Label("Breakdown by Category:"));
         
-        Map<String, Long> asnafByCategory = dataManager.getAsnafList().stream()
-                .collect(Collectors.groupingBy(Asnaf::getTypeOfAsnaf, Collectors.counting()));
-        
-        asnafByCategory.forEach((category, count) -> {
-            asnafBreakdownBox.getChildren().add(new Label("  - " + category + ": " + count));
-        });
+        Map<String, Long> asnafByCategory = dataManager.getAsnafList().stream().collect(Collectors.groupingBy(Asnaf::getTypeOfAsnaf, Collectors.counting()));
+        asnafByCategory.forEach((category, count) -> asnafBreakdownBox.getChildren().add(new Label("   - " + category + ": " + count)));
 
         reportContent.getChildren().addAll(payerHeader, payerCountLabel, totalZakatLabel, new Label(), asnafHeader, asnafCountLabel, asnafBreakdownBox);
         detailsPanel.getChildren().addAll(title, reportContent);
@@ -322,31 +304,24 @@ public class ZakatGUI extends Application {
         
         Button approveButton = new Button("Approve Application");
         approveButton.setOnAction(e -> {
-            try {
-                double amount = Double.parseDouble(amountField.getText());
-                if (amount <= 0) {
-                    new Alert(AlertType.ERROR, "Amount must be a positive number.").show();
-                    return;
-                }
-                hardcodedAdmin.approveRequest(asnaf);
-                asnaf.setAmountReceived(amount);
-                new Alert(AlertType.INFORMATION, "Application for " + asnaf.getName() + " approved.").show();
-                asnafListView.getItems().remove(asnaf);
-                dataManager.getAsnafList().remove(asnaf);
-                // The permanent file removal would require a file rewrite method in FileManager
-                updateDetailsPanel(null);
-            } catch (NumberFormatException ex) {
-                new Alert(AlertType.ERROR, "Please enter a valid number for the amount.").show();
+            if (isInvalidDouble(amountField, "Amount") || isInvalidPositive(amountField, "Amount")) {
+                return;
             }
+            double amount = Double.parseDouble(amountField.getText());
+            hardcodedAdmin.approveRequest(asnaf);
+            asnaf.setAmountReceived(amount);
+            showAlert(AlertType.INFORMATION, "Success", "Application for " + asnaf.getName() + " approved.");
+            asnafListView.getItems().remove(asnaf);
+            dataManager.getAsnafList().remove(asnaf);
+            updateDetailsPanel(null);
         });
         
         Button rejectButton = new Button("Reject Application");
         rejectButton.setOnAction(e -> {
             asnaf.sendNotification(asnaf.getName(), "Your application has been rejected by an administrator.");
-            new Alert(AlertType.WARNING, "Application for " + asnaf.getName() + " has been rejected.").show();
+            showAlert(AlertType.WARNING, "Rejected", "Application for " + asnaf.getName() + " has been rejected.");
             asnafListView.getItems().remove(asnaf);
             dataManager.getAsnafList().remove(asnaf);
-            // The permanent file removal would require a file rewrite method in FileManager
             updateDetailsPanel(null);
         });
         
@@ -374,9 +349,16 @@ public class ZakatGUI extends Application {
         
         dialog.setResultConverter(btn -> {
             if (btn == ButtonType.OK) {
+                if (isInvalidNonEmpty(nameField, "Name") || isInvalidNonEmpty(phoneField, "Phone") ||
+                    isInvalidInteger(ageField, "Age") || isInvalidPositive(ageField, "Age") ||
+                    isInvalidDouble(zakatField, "Zakat Amount") || isInvalidPositive(zakatField, "Zakat Amount")) {
+                    return null; // Validation failed, return null to keep dialog open
+                }
                 try {
                     return new ZakatPayer(nameField.getText(), phoneField.getText(), emailField.getText(), addressField.getText(), Integer.parseInt(ageField.getText()), Double.parseDouble(zakatField.getText()));
-                } catch(Exception e) { new Alert(AlertType.ERROR, "Invalid data. Please check all fields.").show(); return null; }
+                } catch (IllegalArgumentException ex) {
+                    showAlert(AlertType.ERROR, "Creation Failed", ex.getMessage());
+                }
             }
             return null;
         });
@@ -398,7 +380,6 @@ public class ZakatGUI extends Application {
         TextField nameField=new TextField(), phoneField=new TextField(), emailField=new TextField(),
                   addressField=new TextField(), ageField=new TextField(), incomeField=new TextField(),
                   expensesField=new TextField(), familyInfoField=new TextField();
-
         grid.add(new Label("Name:"), 0, 0); grid.add(nameField, 1, 0);
         grid.add(new Label("Phone:"), 0, 1); grid.add(phoneField, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
@@ -440,9 +421,18 @@ public class ZakatGUI extends Application {
         
         dialog.setResultConverter(btn -> {
             if (btn == ButtonType.OK) {
+                if (isInvalidNonEmpty(nameField, "Name") || isInvalidInteger(ageField, "Age") || 
+                    isInvalidDouble(incomeField, "Income") || isInvalidDouble(expensesField, "Expenses")) {
+                    return null;
+                }
+
+                String type = typeComboBox.getValue();
+                if (type.equals("AlGharimoon") && isInvalidDouble(debtAmountField, "Debt Amount")) return null;
+                if (type.equals("AlMualafaQulubuhum") && isInvalidDate(conversionDateField, "Conversion Date")) return null;
+
                 try {
                     String name=nameField.getText(), phone=phoneField.getText(), email=emailField.getText(),
-                           address=addressField.getText(), familyInfo=familyInfoField.getText(), type=typeComboBox.getValue();
+                           address=addressField.getText(), familyInfo=familyInfoField.getText();
                     int age = Integer.parseInt(ageField.getText());
                     double income = Double.parseDouble(incomeField.getText()), expenses = Double.parseDouble(expensesField.getText());
 
@@ -456,7 +446,9 @@ public class ZakatGUI extends Application {
                         case "FiSabiLillah": return new FiSabiLillah(name, phone, email, address, age, income, expenses, familyInfo, activityField.getText(), type);
                         case "IbnAlSabil": return new IbnAlSabil(name, phone, email, address, age, income, expenses, familyInfo, reasonField.getText(), type);
                     }
-                } catch (Exception e) { new Alert(AlertType.ERROR, "Invalid data. Please check all fields.").show(); }
+                } catch (Exception ex) {
+                    showAlert(AlertType.ERROR, "Creation Failed", "An unexpected error occurred: " + ex.getMessage());
+                }
             }
             return null;
         });
@@ -474,24 +466,88 @@ public class ZakatGUI extends Application {
         List<String[]> allData = fileManager.allFileReader();
         for (String[] aData : allData) {
             try {
+                if (aData.length < 7) {
+                    throw new IllegalArgumentException("Data row has insufficient columns.");
+                }
+                
                 if(aData.length >= 11 && (aData[10].equals("AlFuqara") || aData[10].equals("AlMasakin"))) {
                     if (aData[10].equals("AlFuqara")) dataManager.addAsnaf(new AlFuqara(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10]));
                     else if (aData[10].equals("AlMasakin")) dataManager.addAsnaf(new AlMasakin(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10]));
                 } else if(aData.length == 12) {
                      switch (aData[11]) {
-                        case "AlAmilunaAlaiha": dataManager.addAsnaf(new AlAmilunaAlaiha(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
-                        case "AlGharimoon": dataManager.addAsnaf(new AlGharimoon(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], Double.parseDouble(aData[10]), aData[11])); break;
-                        case "AlMualafaQulubuhum": dataManager.addAsnaf(new AlMualafaQulubuhum(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], LocalDate.parse(aData[10]), aData[11])); break;
-                        case "AlRiqab": dataManager.addAsnaf(new AlRiqab(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
-                        case "FiSabiLillah": dataManager.addAsnaf(new FiSabiLillah(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
-                        case "IbnAlSabil": dataManager.addAsnaf(new IbnAlSabil(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
-                     }
+                         case "AlAmilunaAlaiha": dataManager.addAsnaf(new AlAmilunaAlaiha(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
+                         case "AlGharimoon": dataManager.addAsnaf(new AlGharimoon(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], Double.parseDouble(aData[10]), aData[11])); break;
+                         case "AlMualafaQulubuhum": dataManager.addAsnaf(new AlMualafaQulubuhum(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], LocalDate.parse(aData[10]), aData[11])); break;
+                         case "AlRiqab": dataManager.addAsnaf(new AlRiqab(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
+                         case "FiSabiLillah": dataManager.addAsnaf(new FiSabiLillah(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
+                         case "IbnAlSabil": dataManager.addAsnaf(new IbnAlSabil(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
+                    }
                 } else if (aData.length == 7) {
                     dataManager.addZakatPayer(new ZakatPayer(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6])));
                 }
-            } catch (Exception e) {
-                System.err.println("Error parsing data row: " + String.join(";", aData) + " | " + e.getMessage());
+            } catch (NumberFormatException | DateTimeParseException e) {
+                System.err.println("Skipping corrupted data row due to parsing error: " + String.join(";", aData) + " | " + e.getMessage());
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Skipping invalid data row: " + e.getMessage() + " | Data: " + String.join(";", aData));
             }
         }
+    }
+
+    // --- HELPER METHODS FOR VALIDATION AND ALERTS ---
+    
+    private void showAlert(AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    
+    private boolean isInvalidNonEmpty(TextField field, String fieldName) {
+        if (field.getText() == null || field.getText().trim().isEmpty()) {
+            showAlert(AlertType.ERROR, "Validation Error", fieldName + " cannot be empty.");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isInvalidInteger(TextField field, String fieldName) {
+        try {
+            Integer.parseInt(field.getText());
+            return false;
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a valid whole number.");
+            return true;
+        }
+    }
+
+    private boolean isInvalidDouble(TextField field, String fieldName) {
+        try {
+            Double.parseDouble(field.getText());
+            return false;
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a valid number.");
+            return true;
+        }
+    }
+
+    private boolean isInvalidPositive(TextField field, String fieldName) {
+        try {
+            if (Double.parseDouble(field.getText()) <= 0) {
+                showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a positive number.");
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return true; // The invalid number format error will be caught by isInvalidDouble/Integer
+        }
+    }
+    
+    private boolean isInvalidDate(DatePicker field, String fieldName) {
+        if (field.getValue() == null) {
+            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be selected.");
+            return true;
+        }
+        return false;
     }
 }
