@@ -218,6 +218,7 @@ public class ZakatGUI extends Application {
         generateReportButton.setVisible(isAdminLoggedIn);
     }
     
+    //Danial Harith 2411467
     private void updateDetailsPanel(User user) {
         detailsPanel.getChildren().clear();
 
@@ -265,7 +266,7 @@ public class ZakatGUI extends Application {
             grid.add(new Label("Zakat Paid:"), 0, rowIndex); grid.add(new Label(String.format("RM %.2f", ((ZakatPayer) user).getZakatAmount())), 1, rowIndex++);
         }
     }
-    // 
+    //done by IKHWAN_2418289
     private void displayReportInDetailsPanel() {
         detailsPanel.getChildren().clear();
         Label title = new Label("System Data Report");
@@ -293,6 +294,7 @@ public class ZakatGUI extends Application {
         detailsPanel.getChildren().addAll(title, reportContent);
     }
 
+    //Danial Harith 2411467
     private VBox createAdminActionPanel(Asnaf asnaf) {
         VBox adminPanel = new VBox(10);
         adminPanel.setPadding(new Insets(20, 0, 0, 0));
@@ -328,7 +330,7 @@ public class ZakatGUI extends Application {
         adminPanel.getChildren().addAll(adminTitle, new Label("Fund Distribution:"), amountField, new HBox(10, approveButton, rejectButton));
         return adminPanel;
     }
-
+    // done by IKHWAN_2418289
     private void handleAddPayer() {
         Dialog<ZakatPayer> dialog = new Dialog<>();
         dialog.setTitle("Add New Zakat Payer");
@@ -336,7 +338,7 @@ public class ZakatGUI extends Application {
         grid.setHgap(10); grid.setVgap(10); grid.setPadding(new Insets(20));
         
         TextField nameField=new TextField(), phoneField=new TextField(), emailField=new TextField(), 
-                         addressField=new TextField(), ageField=new TextField(), zakatField=new TextField();
+        addressField=new TextField(), ageField=new TextField(), zakatField=new TextField();
         grid.add(new Label("Name:"), 0, 0); grid.add(nameField, 1, 0);
         grid.add(new Label("Phone:"), 0, 1); grid.add(phoneField, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
@@ -378,7 +380,7 @@ public class ZakatGUI extends Application {
             dataManager.addZakatPayer(payer);
         });
     }
-
+    //done by Fauzi_2412657
     private void handleAddAsnaf() {
         Dialog<Asnaf> dialog = new Dialog<>();
         dialog.setTitle("Add New Asnaf");
@@ -387,8 +389,8 @@ public class ZakatGUI extends Application {
         grid.setHgap(10); grid.setVgap(10); grid.setPadding(new Insets(20));
 
         TextField nameField=new TextField(), phoneField=new TextField(), emailField=new TextField(),
-                         addressField=new TextField(), ageField=new TextField(), incomeField=new TextField(),
-                         expensesField=new TextField(), familyInfoField=new TextField();
+        addressField=new TextField(), ageField=new TextField(), incomeField=new TextField(),
+        expensesField=new TextField(), familyInfoField=new TextField();
         grid.add(new Label("Name:"), 0, 0); grid.add(nameField, 1, 0);
         grid.add(new Label("Phone:"), 0, 1); grid.add(phoneField, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
@@ -408,7 +410,7 @@ public class ZakatGUI extends Application {
         grid.add(specificFieldsBox, 0, 9, 2, 1);
 
         TextField zakatAgencyField=new TextField(), debtAmountField=new TextField(),
-                         captivityField=new TextField(), activityField=new TextField(), reasonField=new TextField();
+        captivityField=new TextField(), activityField=new TextField(), reasonField=new TextField();
         DatePicker conversionDateField = new DatePicker();
 
         typeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -474,7 +476,7 @@ public class ZakatGUI extends Application {
             if (btn == ButtonType.OK) {
                 try {
                     String name=nameField.getText(), phone=phoneField.getText(), email=emailField.getText(),
-                                address=addressField.getText(), familyInfo=familyInfoField.getText();
+                    address=addressField.getText(), familyInfo=familyInfoField.getText();
                     int age = Integer.parseInt(ageField.getText());
                     double income = Double.parseDouble(incomeField.getText()), expenses = Double.parseDouble(expensesField.getText());
 
@@ -504,6 +506,7 @@ public class ZakatGUI extends Application {
         });
     }
     
+    //Danial Harith 2411467
     private void readAllData() {
         if(!dataManager.getAsnafList().isEmpty()) return;
         List<String[]> allData = fileManager.allFileReader();
