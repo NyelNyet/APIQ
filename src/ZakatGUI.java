@@ -336,7 +336,7 @@ public class ZakatGUI extends Application {
         grid.setHgap(10); grid.setVgap(10); grid.setPadding(new Insets(20));
         
         TextField nameField=new TextField(), phoneField=new TextField(), emailField=new TextField(), 
-                  addressField=new TextField(), ageField=new TextField(), zakatField=new TextField();
+                         addressField=new TextField(), ageField=new TextField(), zakatField=new TextField();
         grid.add(new Label("Name:"), 0, 0); grid.add(nameField, 1, 0);
         grid.add(new Label("Phone:"), 0, 1); grid.add(phoneField, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
@@ -378,8 +378,8 @@ public class ZakatGUI extends Application {
         grid.setHgap(10); grid.setVgap(10); grid.setPadding(new Insets(20));
 
         TextField nameField=new TextField(), phoneField=new TextField(), emailField=new TextField(),
-                  addressField=new TextField(), ageField=new TextField(), incomeField=new TextField(),
-                  expensesField=new TextField(), familyInfoField=new TextField();
+                         addressField=new TextField(), ageField=new TextField(), incomeField=new TextField(),
+                         expensesField=new TextField(), familyInfoField=new TextField();
         grid.add(new Label("Name:"), 0, 0); grid.add(nameField, 1, 0);
         grid.add(new Label("Phone:"), 0, 1); grid.add(phoneField, 1, 1);
         grid.add(new Label("Email:"), 0, 2); grid.add(emailField, 1, 2);
@@ -399,7 +399,7 @@ public class ZakatGUI extends Application {
         grid.add(specificFieldsBox, 0, 9, 2, 1);
 
         TextField zakatAgencyField=new TextField(), debtAmountField=new TextField(),
-                  captivityField=new TextField(), activityField=new TextField(), reasonField=new TextField();
+                         captivityField=new TextField(), activityField=new TextField(), reasonField=new TextField();
         DatePicker conversionDateField = new DatePicker();
 
         typeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -432,7 +432,7 @@ public class ZakatGUI extends Application {
 
                 try {
                     String name=nameField.getText(), phone=phoneField.getText(), email=emailField.getText(),
-                           address=addressField.getText(), familyInfo=familyInfoField.getText();
+                                address=addressField.getText(), familyInfo=familyInfoField.getText();
                     int age = Integer.parseInt(ageField.getText());
                     double income = Double.parseDouble(incomeField.getText()), expenses = Double.parseDouble(expensesField.getText());
 
@@ -481,7 +481,7 @@ public class ZakatGUI extends Application {
                          case "AlRiqab": dataManager.addAsnaf(new AlRiqab(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
                          case "FiSabiLillah": dataManager.addAsnaf(new FiSabiLillah(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
                          case "IbnAlSabil": dataManager.addAsnaf(new IbnAlSabil(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6]), Double.parseDouble(aData[7]), aData[8], aData[10], aData[11])); break;
-                    }
+                     }
                 } else if (aData.length == 7) {
                     dataManager.addZakatPayer(new ZakatPayer(aData[1], aData[2], aData[3], aData[4], Integer.parseInt(aData[5]), Double.parseDouble(aData[6])));
                 }
@@ -516,7 +516,8 @@ public class ZakatGUI extends Application {
             Integer.parseInt(field.getText());
             return false;
         } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a valid whole number.");
+            field.clear(); // Clear the invalid input
+            showAlert(AlertType.ERROR, "Validation Error", "Please enter a valid whole number for " + fieldName + ".");
             return true;
         }
     }
@@ -526,7 +527,8 @@ public class ZakatGUI extends Application {
             Double.parseDouble(field.getText());
             return false;
         } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a valid number.");
+            field.clear(); // Clear the invalid input
+            showAlert(AlertType.ERROR, "Validation Error", "Please enter a valid number for " + fieldName + ".");
             return true;
         }
     }
@@ -534,12 +536,14 @@ public class ZakatGUI extends Application {
     private boolean isInvalidPositive(TextField field, String fieldName) {
         try {
             if (Double.parseDouble(field.getText()) <= 0) {
+                field.clear(); // Clear the invalid input
                 showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a positive number.");
                 return true;
             }
             return false;
         } catch (NumberFormatException e) {
-            return true; // The invalid number format error will be caught by isInvalidDouble/Integer
+            // This error will be caught by isInvalidDouble/Integer, so no need to clear/alert again
+            return true; 
         }
     }
     
