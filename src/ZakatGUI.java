@@ -347,13 +347,22 @@ public class ZakatGUI extends Application {
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         
+        // This makes sure validation happens before the dialog closes
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
+            if (isInvalidNonEmpty(nameField, "Name") || 
+                isInvalidNonEmpty(phoneField, "Phone") ||
+                isInvalidPhoneNumber(phoneField, "Phone Number") || // New phone number validation
+                isInvalidInteger(ageField, "Age") || 
+                isInvalidPositive(ageField, "Age") ||
+                isInvalidDouble(zakatField, "Zakat Amount") || 
+                isInvalidPositive(zakatField, "Zakat Amount")) {
+                event.consume(); // Consume the event to prevent the dialog from closing
+            }
+        });
+
         dialog.setResultConverter(btn -> {
             if (btn == ButtonType.OK) {
-                if (isInvalidNonEmpty(nameField, "Name") || isInvalidNonEmpty(phoneField, "Phone") ||
-                    isInvalidInteger(ageField, "Age") || isInvalidPositive(ageField, "Age") ||
-                    isInvalidDouble(zakatField, "Zakat Amount") || isInvalidPositive(zakatField, "Zakat Amount")) {
-                    return null; // Validation failed, return null to keep dialog open
-                }
                 try {
                     return new ZakatPayer(nameField.getText(), phoneField.getText(), emailField.getText(), addressField.getText(), Integer.parseInt(ageField.getText()), Double.parseDouble(zakatField.getText()));
                 } catch (IllegalArgumentException ex) {
@@ -419,32 +428,66 @@ public class ZakatGUI extends Application {
         dialog.getDialogPane().setContent(new ScrollPane(grid));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         
+        // This makes sure validation happens before the dialog closes
+        Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        okButton.addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
+            if (isInvalidNonEmpty(nameField, "Name") || 
+                isInvalidNonEmpty(phoneField, "Phone") ||
+                isInvalidPhoneNumber(phoneField, "Phone Number") || // New phone number validation
+                isInvalidInteger(ageField, "Age") || 
+                isInvalidPositive(ageField, "Age") ||
+                isInvalidDouble(incomeField, "Income") || 
+                isInvalidDouble(expensesField, "Expenses")) {
+                event.consume(); // Consume the event to prevent the dialog from closing
+                return;
+            }
+
+            String type = typeComboBox.getValue();
+            if (type.equals("AlGharimoon") && isInvalidDouble(debtAmountField, "Debt Amount")) {
+                event.consume();
+                return;
+            }
+            if (type.equals("AlMualafaQulubuhum") && isInvalidDate(conversionDateField, "Conversion Date")) {
+                event.consume();
+                return;
+            }
+            // Add specific field validation for other Asnaf types if needed
+            if (type.equals("AlAmilunaAlaiha") && isInvalidNonEmpty(zakatAgencyField, "Zakat Agency")) {
+                event.consume();
+                return;
+            }
+            if (type.equals("AlRiqab") && isInvalidNonEmpty(captivityField, "Type of Captivity")) {
+                event.consume();
+                return;
+            }
+            if (type.equals("FiSabiLillah") && isInvalidNonEmpty(activityField, "Activity in Cause of Allah")) {
+                event.consume();
+                return;
+            }
+            if (type.equals("IbnAlSabil") && isInvalidNonEmpty(reasonField, "Reason for being Stranded")) {
+                event.consume();
+                return;
+            }
+        });
+
         dialog.setResultConverter(btn -> {
             if (btn == ButtonType.OK) {
-                if (isInvalidNonEmpty(nameField, "Name") || isInvalidInteger(ageField, "Age") || 
-                    isInvalidDouble(incomeField, "Income") || isInvalidDouble(expensesField, "Expenses")) {
-                    return null;
-                }
-
-                String type = typeComboBox.getValue();
-                if (type.equals("AlGharimoon") && isInvalidDouble(debtAmountField, "Debt Amount")) return null;
-                if (type.equals("AlMualafaQulubuhum") && isInvalidDate(conversionDateField, "Conversion Date")) return null;
-
                 try {
                     String name=nameField.getText(), phone=phoneField.getText(), email=emailField.getText(),
                                 address=addressField.getText(), familyInfo=familyInfoField.getText();
                     int age = Integer.parseInt(ageField.getText());
                     double income = Double.parseDouble(incomeField.getText()), expenses = Double.parseDouble(expensesField.getText());
 
-                    switch(type) {
-                        case "AlFuqara": return new AlFuqara(name, phone, email, address, age, income, expenses, familyInfo, type);
-                        case "AlMasakin": return new AlMasakin(name, phone, email, address, age, income, expenses, familyInfo, type);
-                        case "AlAmilunaAlaiha": return new AlAmilunaAlaiha(name, phone, email, address, age, income, expenses, familyInfo, zakatAgencyField.getText(), type);
-                        case "AlGharimoon": return new AlGharimoon(name, phone, email, address, age, income, expenses, familyInfo, Double.parseDouble(debtAmountField.getText()), type);
-                        case "AlMualafaQulubuhum": return new AlMualafaQulubuhum(name, phone, email, address, age, income, expenses, familyInfo, conversionDateField.getValue(), type);
-                        case "AlRiqab": return new AlRiqab(name, phone, email, address, age, income, expenses, familyInfo, captivityField.getText(), type);
-                        case "FiSabiLillah": return new FiSabiLillah(name, phone, email, address, age, income, expenses, familyInfo, activityField.getText(), type);
-                        case "IbnAlSabil": return new IbnAlSabil(name, phone, email, address, age, income, expenses, familyInfo, reasonField.getText(), type);
+                    switch(typeComboBox.getValue()) {
+                        case "AlFuqara": return new AlFuqara(name, phone, email, address, age, income, expenses, familyInfo, typeComboBox.getValue());
+                        case "AlMasakin": return new AlMasakin(name, phone, email, address, age, income, expenses, familyInfo, typeComboBox.getValue());
+                        case "AlAmilunaAlaiha": return new AlAmilunaAlaiha(name, phone, email, address, age, income, expenses, familyInfo, zakatAgencyField.getText(), typeComboBox.getValue());
+                        case "AlGharimoon": return new AlGharimoon(name, phone, email, address, age, income, expenses, familyInfo, Double.parseDouble(debtAmountField.getText()), typeComboBox.getValue());
+                        case "AlMualafaQulubuhum": return new AlMualafaQulubuhum(name, phone, email, address, age, income, expenses, familyInfo, conversionDateField.getValue(), typeComboBox.getValue());
+                        case "AlRiqab": return new AlRiqab(name, phone, email, address, age, income, expenses, familyInfo, captivityField.getText(), typeComboBox.getValue());
+                        case "FiSabiLillah": return new FiSabiLillah(name, phone, email, address, age, income, expenses, familyInfo, activityField.getText(), typeComboBox.getValue());
+                        case "IbnAlSabil": return new IbnAlSabil(name, phone, email, address, age, income, expenses, familyInfo, reasonField.getText(), typeComboBox.getValue());
+                        default: return null; // Should not happen with pre-selection
                     }
                 } catch (Exception ex) {
                     showAlert(AlertType.ERROR, "Creation Failed", "An unexpected error occurred: " + ex.getMessage());
@@ -516,7 +559,6 @@ public class ZakatGUI extends Application {
             Integer.parseInt(field.getText());
             return false;
         } catch (NumberFormatException e) {
-            field.clear(); // Clear the invalid input
             showAlert(AlertType.ERROR, "Validation Error", "Please enter a valid whole number for " + fieldName + ".");
             return true;
         }
@@ -527,7 +569,6 @@ public class ZakatGUI extends Application {
             Double.parseDouble(field.getText());
             return false;
         } catch (NumberFormatException e) {
-            field.clear(); // Clear the invalid input
             showAlert(AlertType.ERROR, "Validation Error", "Please enter a valid number for " + fieldName + ".");
             return true;
         }
@@ -536,15 +577,21 @@ public class ZakatGUI extends Application {
     private boolean isInvalidPositive(TextField field, String fieldName) {
         try {
             if (Double.parseDouble(field.getText()) <= 0) {
-                field.clear(); // Clear the invalid input
                 showAlert(AlertType.ERROR, "Validation Error", fieldName + " must be a positive number.");
                 return true;
             }
             return false;
         } catch (NumberFormatException e) {
-            // This error will be caught by isInvalidDouble/Integer, so no need to clear/alert again
-            return true; 
+            return true; // The invalid number format error will be caught by isInvalidDouble/Integer
         }
+    }
+
+    private boolean isInvalidPhoneNumber(TextField field, String fieldName) {
+        if (!field.getText().matches("\\d+")) { // Regex to check if all characters are digits
+            showAlert(AlertType.ERROR, "Validation Error", fieldName + " must contain only digits (0-9).");
+            return true;
+        }
+        return false;
     }
     
     private boolean isInvalidDate(DatePicker field, String fieldName) {
